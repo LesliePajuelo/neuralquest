@@ -11,13 +11,18 @@
     .module('neuralquestApp')
     .factory('Missions', Missions);
 
-    function Missions($firebaseArray, $firebaseObject, FirebaseUrl, $q){
+    function Missions($firebaseArray, $firebaseObject, FirebaseUrl, $q, ModalService){
       var ref = new Firebase(FirebaseUrl + '/NNFlat');
+
+      var currentStep = 'Beginner';
+      var authData = ref.getAuth();
 
       var Mission = {};
       Mission.getShuffleData = getShuffleData;
       Mission.getLastElement = getLastElement;
       Mission.codeEditorApiCall = codeEditorApiCall;
+      Mission.sequenceQuery = sequenceQuery;
+      Mission.showCustom = showCustom;
 
       return Mission;
 
@@ -84,6 +89,31 @@
         });
       };
 
-    };
+      function showCustom () {};
 
+      function sequenceQuery(data, step) {
+        var refWrite = new Firebase(FirebaseUrl + '/users/' + authData.uid + '/');
+        ref.orderByChild('sequence').startAt(data).limitToFirst(1).on('value', function(snapshot) {
+          var element = snapshot.val();
+          for (var seq in element) {
+            refWrite.update({ currentSequence: element[seq].sequence });
+            currentStep = element[seq].step;
+          }
+          if(step !== currentStep){
+            ModalService.showModal({
+              templateUrl: "./lessons/stepComplete.template.html",
+              controller: function(close){
+                this.close = close
+              }
+              // controller: 'CustomController'
+              }).then(function(modal) {
+                modal.close.then(function(results){
+                  return true;
+                })
+              });
+            showCustom();
+        };
+      });
+    };
+  };
 })();

@@ -556,6 +556,7 @@ img{
 .lessonBox:hover {
   border: 8px solid #4A4A4A;
 }
+
 .homemaincontent {
   margin-bottom: 100px;
 }
@@ -601,9 +602,11 @@ img{
   font-style: italic;
   font-color: #ddd;
 }
+
 .profileWrapper p {
   padding-bottom: 10px;
 }
+
 /*----------------------------------------------------------*/
 /*                       Ace Style Classes                  */
 /*----------------------------------------------------------*/

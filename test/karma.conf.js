@@ -38,6 +38,7 @@ module.exports = function(config) {
       'bower_components/AngularJS-Toaster/toaster.js',
       'bower_components/Chart.js/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
+      'bower_components/angular-modal-service/dst/angular-modal-service.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/mockfirebase/browser/mockfirebase.js',
       // endbower

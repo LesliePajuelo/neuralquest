@@ -22,7 +22,8 @@
       'ngAnimate',
       'toaster',
       'youtube-embed',
-      'chart.js'
+      'chart.js',
+      'angularModalService'
     ])
 
     .run(["$rootScope", "$window", '$location', scrollToTop]);

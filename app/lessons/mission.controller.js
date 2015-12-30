@@ -62,20 +62,7 @@ function resetGate() {
     checkGateNeededEle();
     missionCtrl.modal = modal;
 
-    
-    // init();
-
-    // missionCtrl.isAdminMode = BuildSrv.isAdminMode;
-
-    function multipleChoiceChecker(answer) {
-      if (answer && !questionHasBeenChecked) {
-        questionHasBeenChecked = true;
-        openGate();
-      }
-    };
-
     $scope.$watch('sequence', function(newVal, oldVal){
-      console.log('hello');
       $timeout(function(){
         Prism.highlightAll();  
       }, 100);
@@ -99,11 +86,17 @@ function resetGate() {
       }
     }
 
-    function saveElement(currentSeqNum, step) {
-      setNextShuffle(currentSeqNum, step);
+    function multipleChoiceChecker(answer) {
+      if (answer && !questionHasBeenChecked) {
+        questionHasBeenChecked = true;
+        openGate();
+      }
+    };
+
+    function saveElement(data, step) {
       var refWrite = new Firebase(FirebaseUrl + '/users/' + authData.uid + '/');
-      var currentUser = $firebaseObject(refWrite);
-      var maxSeq;
+
+
       //if last page show complete template.
       var lastEleKey = Object.keys(lastEle);
       if( (currentSeqNum) == lastEleKey ){
@@ -137,8 +130,7 @@ function resetGate() {
         missionCtrl.sequence = missionCtrl.elements[elem].sequence;
       }
       if(missionCtrl.sequence <= lastEleKey){
-        console.log('setting next shuffle');
-        setNextShuffle(missionCtrl.sequence);
+        setNextShuffle(missionCtrl.sequence);  
       }
     };
 
